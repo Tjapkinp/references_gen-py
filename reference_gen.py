@@ -18,7 +18,7 @@ TextLineWidth = 13
 InputTextLineWidth = 45
 ComboLineWidth = 43
 
-ComboListStyle = ["ГОСТ", "Труды МАИ"]
+ComboListStyle = ["ГОСТ Р 7.0.5-2008 \"Труды МАИ\"", "ГОСТ"]
 ComboListStyleDefault = ComboListStyle[0]
 
 ComboListType = ["Статья, RUS", "Статья, EN", "Книга, RUS", "Книга, EN"]
@@ -75,32 +75,45 @@ while True:  # The Event Loop
         except:
             print("Что-то введено не так..")
 
-        if len(author):
-            outp_string += author + ' '
-
-        if len(name):
-            outp_string += name + ' // '
-
-        if len(publisher):
-            outp_string += publisher + '. '
-
-        if len(year):
-            outp_string += year + '. '
-
-        if len(volume):
-            outp_string += '№ ' + volume + '. '
-
-        if len(pages):
-            outp_string += 'C. ' + pages + '. '
-
-        if len(URL):
-            outp_string += 'URL: ' + URL
-
-        if len(DOI):
-            if len(URL):
-                outp_string += '. '
-            outp_string += 'DOI: ' + DOI
-
+        if style == ComboListStyle[0]: # ГОСТ Р 7.0.5-2008 \"Труды МАИ\"
+            if type == "Статья, RUS":
+                if len(author):
+                    outp_string += author + ' '
+                if len(name):
+                    outp_string += name + ' // '
+                if len(publisher):
+                    outp_string += publisher + '. '
+                if len(year):
+                    outp_string += year + '. '
+                if len(volume):
+                    outp_string += '№ ' + volume + '. '
+                if len(pages):
+                    outp_string += 'C. ' + pages + '. '
+                if len(URL):
+                    outp_string += 'URL: ' + URL
+                if len(DOI):
+                    if len(URL):
+                        outp_string += '. '
+                    outp_string += 'DOI: ' + DOI
+            elif type == "Статья, EN":
+                if len(author):
+                    outp_string += author + ' '
+                if len(name):
+                    outp_string += name + '. '
+                if len(publisher):
+                    outp_string += publisher + ', '
+                if len(year):
+                    outp_string += year + ', '
+                if len(volume):
+                    outp_string += 'no. ' + volume + '. '
+                if len(pages):
+                    outp_string += 'pp. ' + pages + '. ' #TODO: проверить!
+                if len(URL):
+                    outp_string += 'URL: ' + URL
+                if len(DOI):
+                    if len(URL):
+                        outp_string += '. '
+                    outp_string += 'DOI: ' + DOI
         if len(outp_string):
             print(outp_string)
 
