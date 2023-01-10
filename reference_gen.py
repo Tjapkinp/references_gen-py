@@ -1,4 +1,4 @@
-# Jan 9, 2023
+# Jan 10, 2023
 # Author: Tyapkin P.S.
 
 #TODO: 1. Add languages, styles
@@ -50,7 +50,7 @@ layout = [
     [sgui.Output(key='-OUT-', size=(60, 10))]
 
 ]
-window = sgui.Window('Формирователь списка лит. для Трудов МАИ (07.01.23)', layout)
+window = sgui.Window('Формирователь списка лит. для Трудов МАИ (10.01.23)', layout)
 
 while True:  # The Event Loop
     event, values = window.read()
@@ -108,6 +108,50 @@ while True:  # The Event Loop
                     outp_string += 'no. ' + volume + '. '
                 if len(pages):
                     outp_string += 'pp. ' + pages + '. ' #TODO: проверить!
+                if len(URL):
+                    outp_string += 'URL: ' + URL
+                if len(DOI):
+                    if len(URL):
+                        outp_string += '. '
+                    outp_string += 'DOI: ' + DOI
+    # Советов Б.Я., Яковлев С.А. Моделирование систем. – М.: Высшая школа, 1985. – 271 с.
+    # Паничев В.В., Соловьев Н.А. Компьютерное моделирование. – Оренбург: ГОУ ОГУ, 2008. – 130 с.
+            elif type == "Книга, RUS": # TODO: проверить на статьях!
+                if len(author):
+                    outp_string += author + ' '
+                if len(name):
+                    outp_string += name + '. '
+                if len(city):
+                    outp_string += ' – ' + city
+                if len(publisher):
+                    outp_string += ': ' + publisher + ', '
+                if len(year):
+                    outp_string += year + '. '
+                #if len(volume):
+                #    outp_string += 'no. ' + volume + '. '
+                if len(pages):
+                    outp_string += '– ' + pages + ' с. '
+                if len(URL):
+                    outp_string += 'URL: ' + URL
+                if len(DOI):
+                    if len(URL):
+                        outp_string += '. '
+                    outp_string += 'DOI: ' + DOI
+            elif type == "Книга, EN":  # TODO:
+                if len(author):
+                    outp_string += author + ' '
+                if len(name):
+                    outp_string += name + '. '
+                if len(city):
+                    outp_string += ' – ' + city
+                if len(publisher):
+                    outp_string += ': ' + publisher + ', '
+                if len(year):
+                    outp_string += year + '. '
+                # if len(volume):
+                #    outp_string += 'no. ' + volume + '. '
+                if len(pages):
+                    outp_string += '– ' + pages + ' с. '
                 if len(URL):
                     outp_string += 'URL: ' + URL
                 if len(DOI):
