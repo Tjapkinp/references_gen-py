@@ -1,7 +1,7 @@
-# Jan 11, 2023
+# Jan 12, 2023
 # Author: Tyapkin P.S.
 
-# TODO: 1. Add languages, OnForm.styles
+# TODO: 1. Add languages
 # TODO: 2. OnForm.styles (GOST, MAI...)
 # TODO: 3. OnForm.type (Articles, Books...)
 # TODO: 5. Save references to .txt & excel table / csv
@@ -21,6 +21,95 @@ class ParamsGUI:
 
 # theme_name_list = sGUI.theme_list()
 # print(theme_name_list)
+
+def generate_ref_gost_r_7_0_5_2008(std=ParamsGUI.combo_list_standard[0], reference_type="Статья, RUS", author="",
+                                   ref_name="", publisher="", city="", year="", volume="", pages="", url="", doi=""):
+    generated_string = ""
+    if std == ParamsGUI.combo_list_standard[0]:  # ГОСТ Р 7.0.5-2008 \"Труды МАИ\"
+        if reference_type == ParamsGUI.combo_list_type[0]:  # "Статья, RUS"
+            if len(author):
+                generated_string += author + ' '
+            if len(ref_name):
+                generated_string += ref_name + ' // '
+            if len(publisher):
+                generated_string += publisher + '. '
+            if len(year):
+                generated_string += year + '. '
+            if len(volume):
+                generated_string += '№ ' + volume + '. '
+            if len(pages):
+                generated_string += 'C. ' + pages + '. '
+            if len(url):
+                generated_string += 'URL: ' + url
+            if len(doi):
+                if len(url):
+                    generated_string += '. '
+                generated_string += 'DOI: ' + doi
+        elif reference_type == "Статья, EN":
+            if len(author):
+                generated_string += author + ' '
+            if len(ref_name):
+                generated_string += ref_name + '. '
+            if len(publisher):
+                generated_string += publisher + ', '
+            if len(year):
+                generated_string += year + ', '
+            if len(volume):
+                generated_string += 'no. ' + volume + '. '
+            if len(pages):
+                generated_string += 'pp. ' + pages + '. '  # TODO: проверить!
+            if len(url):
+                generated_string += 'URL: ' + url
+            if len(doi):
+                if len(url):
+                    generated_string += '. '
+                generated_string += 'DOI: ' + doi
+        # Советов Б.Я., Яковлев С.А. Моделирование систем. – М.: Высшая школа, 1985. – 271 с.
+        # Паничев В.В., Соловьев Н.А. Компьютерное моделирование. – Оренбург: ГОУ ОГУ, 2008. – 130 с.
+        elif reference_type == "Книга, RUS":  # TODO: проверить на статьях!
+            if len(author):
+                generated_string += author + ' '
+            if len(ref_name):
+                generated_string += ref_name + '. '
+            if len(city):
+                generated_string += '– ' + city
+            if len(publisher):
+                generated_string += ': ' + publisher + ', '
+            if len(year):
+                generated_string += year + '. '
+            # if len(OnForm.volume_edit_text):
+            #    generated_string += 'no. ' + OnForm.volume_edit_text + '. '
+            if len(pages):
+                generated_string += '– ' + pages + ' с. '
+            if len(url):
+                generated_string += 'URL: ' + url
+            if len(doi):
+                if len(url):
+                    generated_string += '. '
+                generated_string += 'DOI: ' + doi
+        elif type == "Книга, EN":  # TODO:!!!
+            if len(author):
+                generated_string += author + ' '
+            if len(ref_name):
+                generated_string += ref_name + '. '
+            if len(city):
+                generated_string += ' – ' + city
+            if len(publisher):
+                generated_string += ': ' + publisher + ', '
+            if len(year):
+                generated_string += year + '. '
+            # if len(OnForm.volume_edit_text):
+            #    generated_string += 'no. ' + OnForm.volume_edit_text + '. '
+            if len(pages):
+                generated_string += '– ' + pages + ' с. '
+            if len(url):
+                generated_string += 'URL: ' + url
+            if len(doi):
+                if len(url):
+                    generated_string += '. '
+                generated_string += 'DOI: ' + doi
+    return generated_string
+
 
 class OnForm:
     sGUI.theme('Dark')
@@ -154,91 +243,20 @@ while True:  # The Event Loop
         except():
             print("Что-то введено не так..")
 
-        if OnForm.standard_edit_text == ParamsGUI.combo_list_standard[0]:  # ГОСТ Р 7.0.5-2008 \"Труды МАИ\"
-            if OnForm.reference_type_edit_text == "Статья, RUS":
-                if len(OnForm.author_edit_text):
-                    generated_string += OnForm.author_edit_text + ' '
-                if len(OnForm.ref_name_edit_text):
-                    generated_string += OnForm.ref_name_edit_text + ' // '
-                if len(OnForm.publisher_edit_text):
-                    generated_string += OnForm.publisher_edit_text + '. '
-                if len(OnForm.year_edit_text):
-                    generated_string += OnForm.year_edit_text + '. '
-                if len(OnForm.volume_edit_text):
-                    generated_string += '№ ' + OnForm.volume_edit_text + '. '
-                if len(OnForm.pages_edit_text):
-                    generated_string += 'C. ' + OnForm.pages_edit_text + '. '
-                if len(OnForm.url_edit_text):
-                    generated_string += 'URL: ' + OnForm.url_edit_text
-                if len(OnForm.doi_edit_text):
-                    if len(OnForm.url_edit_text):
-                        generated_string += '. '
-                    generated_string += 'DOI: ' + OnForm.doi_edit_text
-            elif OnForm.reference_type_edit_text == "Статья, EN":
-                if len(OnForm.author_edit_text):
-                    generated_string += OnForm.author_edit_text + ' '
-                if len(OnForm.ref_name_edit_text):
-                    generated_string += OnForm.ref_name_edit_text + '. '
-                if len(OnForm.publisher_edit_text):
-                    generated_string += OnForm.publisher_edit_text + ', '
-                if len(OnForm.year_edit_text):
-                    generated_string += OnForm.year_edit_text + ', '
-                if len(OnForm.volume_edit_text):
-                    generated_string += 'no. ' + OnForm.volume_edit_text + '. '
-                if len(OnForm.pages_edit_text):
-                    generated_string += 'pp. ' + OnForm.pages_edit_text + '. '  # TODO: проверить!
-                if len(OnForm.url_edit_text):
-                    generated_string += 'URL: ' + OnForm.url_edit_text
-                if len(OnForm.doi_edit_text):
-                    if len(OnForm.url_edit_text):
-                        generated_string += '. '
-                    generated_string += 'DOI: ' + OnForm.doi_edit_text
-            # Советов Б.Я., Яковлев С.А. Моделирование систем. – М.: Высшая школа, 1985. – 271 с.
-            # Паничев В.В., Соловьев Н.А. Компьютерное моделирование. – Оренбург: ГОУ ОГУ, 2008. – 130 с.
-            elif OnForm.reference_type_edit_text == "Книга, RUS":  # TODO: проверить на статьях!
-                if len(OnForm.author_edit_text):
-                    generated_string += OnForm.author_edit_text + ' '
-                if len(OnForm.ref_name_edit_text):
-                    generated_string += OnForm.ref_name_edit_text + '. '
-                if len(OnForm.city_edit_text):
-                    generated_string += '– ' + OnForm.city_edit_text
-                if len(OnForm.publisher_edit_text):
-                    generated_string += ': ' + OnForm.publisher_edit_text + ', '
-                if len(OnForm.year_edit_text):
-                    generated_string += OnForm.year_edit_text + '. '
-                # if len(OnForm.volume_edit_text):
-                #    generated_string += 'no. ' + OnForm.volume_edit_text + '. '
-                if len(OnForm.pages_edit_text):
-                    generated_string += '– ' + OnForm.pages_edit_text + ' с. '
-                if len(OnForm.url_edit_text):
-                    generated_string += 'URL: ' + OnForm.url_edit_text
-                if len(OnForm.doi_edit_text):
-                    if len(OnForm.url_edit_text):
-                        generated_string += '. '
-                    generated_string += 'DOI: ' + OnForm.doi_edit_text
-            elif OnForm.reference_type_edit_text == "Книга, EN":  # TODO:!!!
-                if len(OnForm.author_edit_text):
-                    generated_string += OnForm.author_edit_text + ' '
-                if len(OnForm.ref_name_edit_text):
-                    generated_string += OnForm.ref_name_edit_text + '. '
-                if len(OnForm.city_edit_text):
-                    generated_string += ' – ' + OnForm.city_edit_text
-                if len(OnForm.publisher_edit_text):
-                    generated_string += ': ' + OnForm.publisher_edit_text + ', '
-                if len(OnForm.year_edit_text):
-                    generated_string += OnForm.year_edit_text + '. '
-                # if len(OnForm.volume_edit_text):
-                #    generated_string += 'no. ' + OnForm.volume_edit_text + '. '
-                if len(OnForm.pages_edit_text):
-                    generated_string += '– ' + OnForm.pages_edit_text + ' с. '
-                if len(OnForm.url_edit_text):
-                    generated_string += 'URL: ' + OnForm.url_edit_text
-                if len(OnForm.doi_edit_text):
-                    if len(OnForm.url_edit_text):
-                        generated_string += '. '
-                    generated_string += 'DOI: ' + OnForm.doi_edit_text
-        if len(generated_string):
-            print(generated_string)
+        ref_str = generate_ref_gost_r_7_0_5_2008(std=OnForm.standard_edit_text,
+                                                 reference_type=OnForm.reference_type_edit_text,
+                                                 author=OnForm.author_edit_text,
+                                                 ref_name=OnForm.ref_name_edit_text,
+                                                 publisher=OnForm.publisher_edit_text,
+                                                 city=OnForm.city_edit_text,
+                                                 year=OnForm.year_edit_text,
+                                                 volume=OnForm.volume_edit_text,
+                                                 pages=OnForm.pages_edit_text,
+                                                 url=OnForm.url_edit_text,
+                                                 doi=OnForm.doi_edit_text)
+
+        if len(ref_str):
+            print(ref_str)
 
     if event in (None, 'Выйти', 'Cancel'):
         break
